@@ -1,0 +1,24 @@
+<div>
+  <label for="filter">Filter:</label>
+  <input id="filter" [(ngModel)]="filterText" (input)="applyFilter(filterText)" />
+</div>
+
+<div *ngFor="let tab of tabEntries | organizeComments:filterText">
+  <h2>{{ tab.tabName }}</h2>
+  <div *ngFor="let page of tab.associatedPages">
+    <h3>Page: {{ page.pageName }}</h3>
+    <div *ngFor="let conversation of page.conversations">
+      <div class="grid">
+        <div class="row">
+          <div class="cell">{{ conversation.state }}</div>
+          <div class="cell">{{ conversation.creator.name }}</div>
+          <div class="cell">
+            <div *ngFor="let message of conversation.messages">
+              {{ message.text }} - {{ message.timestamp }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

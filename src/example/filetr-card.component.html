@@ -1,0 +1,8 @@
+<mat-card class="filter-card">
+  <mat-checkbox ([ngModel])="(showResolved)" (change)="onFilterChange()"
+    >Show Resolved</mat-checkbox
+  >
+  <mat-checkbox ([ngModel])="(showAll)" (change)="onFilterChange()"
+    >Show All</mat-checkbox
+  >
+</mat-card>

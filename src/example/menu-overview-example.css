@@ -1,0 +1,53 @@
+.table-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(
+    5,
+    1fr
+  ); /* Adjust based on the number of columns */
+}
+
+.header-row {
+  display: contents;
+}
+
+.header-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-row {
+  display: contents;
+}
+
+.data-cell {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-panel {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.filter-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
