@@ -21,7 +21,7 @@ import { FilterCardComponent } from './filter-card.component';
     MatCardModule,
     MatCheckboxModule,
     MatIconModule,
-    FilterCardComponent,
+    FilterCardComponent    
   ],
 })
 export class MenuOverviewExample {

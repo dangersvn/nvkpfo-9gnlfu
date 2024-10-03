@@ -1,0 +1,41 @@
+<mat-toolbar class="footer-bar">
+    <ng-container *ngIf="config.conversation.featureFlag">
+      <mat-slide-toggle
+        (change)="onConversationToggle($event)"
+        color="primary"
+        [checked]="state.conversationOpen"
+      >
+        Toggle Conversation
+      </mat-slide-toggle>
+    </ng-container>
+    <span class="spacer"></span>
+  
+    <ng-container *ngIf="config.filter.featureFlag && config.conversation.featureFlag">
+      <button mat-icon-button [matMenuTriggerFor]="filterMenu">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+  
+      <mat-menu #filterMenu="matMenu">
+        <ng-container *ngFor="let action of config.filter.actions">
+          <mat-checkbox
+            (change)="onFilterChange('actions', action.label, $event.checked)"
+          >
+            {{ action.label }}
+          </mat-checkbox>
+        </ng-container>
+  
+        <mat-divider *ngIf="config.filter.types"></mat-divider>
+  
+        <ng-container *ngIf="config.filter.types">
+          <ng-container *ngFor="let type of config.filter.types">
+            <mat-checkbox
+              (change)="onFilterChange('types', type.label, $event.checked)"
+            >
+              {{ type.label }}
+            </mat-checkbox>
+          </ng-container>
+        </ng-container>
+      </mat-menu>
+    </ng-container>
+  </mat-toolbar>
+  State: {{ state | json }}
