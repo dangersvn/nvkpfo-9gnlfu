@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -7,25 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-
-interface FooterBarConfig {
-  conversation: {
-    featureFlag: boolean;
-  };
-  filter: {
-    featureFlag: boolean;
-    actions: { label: string }[];
-    types?: { label: string }[];
-  };
-}
-
-interface FooterBarState {
-  conversationOpen: boolean;
-  filter: {
-    actions: string[];
-    types: string[];
-  };
-}
+import { PageLevelSaveService } from './page-level-save.service';
+import { ConversationAndFilterConfig, ConversationAndFilterState } from './conversation-filter.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-footer-bar',
@@ -44,45 +28,37 @@ interface FooterBarState {
   ]
 })
 export class FooterBarComponent {
-  @Input() config: FooterBarConfig = {
-    conversation: {
-      featureFlag: true
-    },
-    filter: {
-      featureFlag: false,
-      actions: [{label: "Show Resolved"}],
-      types: []
-    }
-  };
-  @Output() stateChange = new EventEmitter<FooterBarState>();
+  public conversationAndFilterConfig$: Observable<ConversationAndFilterConfig> 
+  public conversationAndFilterState$: Observable<ConversationAndFilterState>;
 
-  public state: FooterBarState = {
-    conversationOpen: true,
-    filter: {
-      actions: [],
-      types: []
-    }
-  };
+  constructor(private pageLevelSaveService: PageLevelSaveService) {
+    this.conversationAndFilterConfig$ = this.pageLevelSaveService.conversationAndFilterConfig$;
+    this.conversationAndFilterState$ = this.pageLevelSaveService.conversationAndFilterState$;
+  }
 
   onConversationToggle(event: MatSlideToggleChange): void {
-    this.state.conversationOpen = event.checked;
-    this.emitState();
+    this.pageLevelSaveService.updateConversationAndFilterState({ conversationOpen: event.checked });
   }
 
   onFilterChange(filterType: 'actions' | 'types', label: string, checked: boolean): void {
+    const currentState = this.pageLevelSaveService.getConversationAndFilterState();
+    if (!currentState.filter) return;
+
+    let updatedFilter = { ...currentState.filter };
     if (checked) {
-      this.state.filter[filterType].push(label);
+      updatedFilter[filterType] = [...updatedFilter[filterType], label];
     } else {
-      const index = this.state.filter[filterType].indexOf(label);
-      if (index > -1) {
-        this.state.filter[filterType].splice(index, 1);
-      }
+      updatedFilter[filterType] = updatedFilter[filterType].filter(item => item !== label);
     }
-    this.emitState();
+
+    this.pageLevelSaveService.updateConversationAndFilterState({ filter: updatedFilter });
   }
 
-  private emitState(): void {
-    this.stateChange.emit(this.state);
-    
+  isFilterEnabled(): boolean {
+    const config = this.pageLevelSaveService.getConversationAndFilterConfig();
+    const state = this.pageLevelSaveService.getConversationAndFilterState();
+    return !!config.filter?.enabled && 
+            config.conversation.enabled && 
+            state.conversationOpen;
   }
 }
