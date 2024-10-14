@@ -1,5 +1,6 @@
 <mat-toolbar class="footer-bar">
   <ng-container *ngIf="conversationAndFilterConfig$ | async as config">
+    <app-filter *ngIf="(pageLevelSaveService.conversationAndFilterConfig$ | async)?.filter?.enabled"></app-filter>
     <ng-container *ngIf="config.conversation.enabled">
       <mat-slide-toggle (change)="onConversationToggle($event)" color="primary"
         [checked]="(conversationAndFilterState$ | async)?.conversationOpen">

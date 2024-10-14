@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { PageLevelSaveService } from './page-level-save.service';
 import { ConversationAndFilterConfig, ConversationAndFilterState } from './conversation-filter.model';
 import { Observable } from 'rxjs';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-footer-bar',
@@ -25,13 +26,14 @@ import { Observable } from 'rxjs';
     MatMenuModule,
     MatCheckboxModule,
     MatDividerModule,
+    FilterComponent
   ]
 })
 export class FooterBarComponent {
   public conversationAndFilterConfig$: Observable<ConversationAndFilterConfig> 
   public conversationAndFilterState$: Observable<ConversationAndFilterState>;
 
-  constructor(private pageLevelSaveService: PageLevelSaveService) {
+  constructor(public pageLevelSaveService: PageLevelSaveService) {
     this.conversationAndFilterConfig$ = this.pageLevelSaveService.conversationAndFilterConfig$;
     this.conversationAndFilterState$ = this.pageLevelSaveService.conversationAndFilterState$;
   }
