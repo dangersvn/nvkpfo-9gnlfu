@@ -10,9 +10,15 @@ import { ConversationAndFilterConfig } from 'src/footer-bar/components/footer-ba
 import { PageLevelSaveService } from './../footer-bar/components/footer-bar/page-level-save.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+import { GlobalSpinnerComponent } from './components/global-spinner.component';
+import { LoadingService } from 'src/services/loading-service';
+import { DisableWhileLoadingDirective } from 'src/services/loading.direction';
+import { DummyService } from 'src/services/dummy.service';
+import { NarrativeComponent } from 'src/app/narrative/narrative.component';
 
 /**
- * @title Basic menu
+ * @title Basic menu    Loading
  */
 @Component({
   selector: 'menu-overview-example',
@@ -26,17 +32,26 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatCheckboxModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FilterCardComponent,
-    FooterBarComponent
+    FooterBarComponent,
+    GlobalSpinnerComponent,
+    DisableWhileLoadingDirective,
+    NarrativeComponent
   ],
 })
 export class MenuOverviewExample implements OnInit, OnDestroy {
 
   private configSubscription: Subscription;
 
-  constructor(public pageLevelSaveService: PageLevelSaveService) { }
+  constructor(private dummyService: DummyService, protected loadingService: LoadingService, public pageLevelSaveService: PageLevelSaveService) { }
 
-  ngOnInit() {
+  ngOnInit() {//virginia
+    this.updateConfig(true, true, [{ label: 'Show Resolved' }])
+
+    this.dummyService.getData().subscribe(_=> {
+      console.log("Data from dummy service: ", _)
+    }, error => {console.log("Error dummy service: ", error)})
 
   }
 
@@ -80,6 +95,13 @@ export class MenuOverviewExample implements OnInit, OnDestroy {
     };
     this.pageLevelSaveService.updateConversationAndFilterConfig(newConfig);
   }
+  
+
+click() {
+  this.dummyService.getData().subscribe(_=> {
+    console.log("Data from dummy service: ", _)
+  }, error => {console.log("Error dummy service: ", error)})
+}
 }
 
 /**  Copyright 2024 Google LLC. All Rights Reserved.

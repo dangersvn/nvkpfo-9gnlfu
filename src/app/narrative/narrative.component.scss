@@ -1,0 +1,63 @@
+// .header {
+//     border-bottom: 1px solid #dee2e6;
+//   padding-bottom: 1rem;
+//   }
+
+// .sticky-action-buttons {
+//   position: sticky;
+//   top: 0;
+//   background-color: yellow;
+//   z-index: 1000;
+//   padding: 1rem 0;
+//   border-bottom: 1px solid #dee2e6;
+//   }
+
+// #page-selector-row {
+//   margin-bottom: 0 !important;
+// }
+
+// // Remove the header height constraint if it's no longer needed
+// // header.header {
+// //   height: 100px;
+// // }
+
+// // Add some space between the sticky buttons and the content
+// #pageAccordion {
+//   margin-top: 1rem;
+//   border: 1px solid blue
+// }
+
+.narrative-container {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+}
+.header {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 1rem;
+}
+.sticky-action-buttons {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  padding: 1rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+#page-selector-row {
+  margin-bottom: 0 !important;
+}
+
+.content-area {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+#pageAccordion {
+  margin-top: 1rem;
+}
+
+// Ensure the sticky element doesn't overlap with the footer if there is one
+.footer {
+  margin-top: auto;
+}
