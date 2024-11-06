@@ -12,6 +12,9 @@
                         <option value="2">Page 2</option>
                         <option value="3">Page 3</option>
                     </select>
+                    <div class="overlay" *ngIf="isLoading && !isSticky">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,20 +25,23 @@
             <div class="row" id="action-buttons-row">
                 <div class="col-auto">
                     <div class="btn-group" role="group" aria-label="Toggle group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnBuilder" autocomplete="off"
-                            checked>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnBuilder" autocomplete="off" checked>
                         <label class="btn btn-outline-primary" for="btnBuilder">Builder</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnEditor" autocomplete="off">
                         <label class="btn btn-outline-primary" for="btnEditor">Editor</label>
                     </div>
+                    <div class="overlay" *ngIf="isLoading && isSticky">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-secondary me-2">Refresh</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary me-2" [disabled]="isLoading">Refresh</button>
+                    <button type="button" class="btn btn-primary" [disabled]="isLoading" (click)="save()">Save</button>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="accordion" id="pageAccordion">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
