@@ -5,16 +5,16 @@
                 <div class="col-auto">
                     <label for="pageDropdown" class="form-label">Page:</label>
                 </div>
-                <div class="col">
+                <div class="col d-flex">
                     <select id="pageDropdown" class="form-select">
                         <option selected>Select a page</option>
                         <option value="1">Page 1</option>
                         <option value="2">Page 2</option>
                         <option value="3">Page 3</option>
                     </select>
-                    <div class="overlay" *ngIf="isLoading && !isSticky">
+                    <span class="overlay top-spinner" *ngIf="isLoading && !isSticky">
                         <mat-spinner diameter="50"></mat-spinner>
-                    </div>
+                    </span>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
     <div class="sticky-action-buttons">
         <div class="container">
             <div class="row" id="action-buttons-row">
-                <div class="col-auto">
+                <div class="col-auto d-flex">
                     <div class="btn-group" role="group" aria-label="Toggle group">
                         <input type="radio" class="btn-check" name="btnradio" id="btnBuilder" autocomplete="off" checked>
                         <label class="btn btn-outline-primary" for="btnBuilder">Builder</label>

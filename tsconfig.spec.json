@@ -1,17 +1,16 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine"
-    ]
+    "types": ["jest", "node"], // Add jest and node types here
+    "esModuleInterop": true,  // Ensure compatibility
   },
-  "files": [
-    "src/test.ts"
-  ],
   "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "setup-jest.ts" // Include your setup file
+  ],
+  "files": [
+    "src/polyfills.ts" // Include any polyfills
   ]
 }
