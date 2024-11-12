@@ -9,8 +9,6 @@ describe('NarrativeComponent', () => {
   let fixture: ComponentFixture<NarrativeComponent>;
   let elementRef: ElementRef;
   let ngZone: NgZone;
-  let ngZoneRunSpy: jest.SpyInstance;
-  // let intersectionObserverCallback: (entries: IntersectionObserverEntry[]) => void;
   let mockIntersectionObserver = jest.fn();
   const mockObserve = jest.fn();
   const mockUnobserve = jest.fn();
